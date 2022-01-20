@@ -29,13 +29,20 @@ const SSR = ({ photos, page }: Props) => {
 		</main>
 	) : (
 		<main>
-			<Link href={`/SSR/${Number(page) + 1}`}>
-				<a className="flex items-center justify-center">
-					<div className="px-6 py-1 my-8 mb-4 text-lg font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-600">
-						Próxima pagina
-					</div>
-				</a>
-			</Link>
+			<section className="flex items-center justify-center flex-1 w-screen">
+				<Link href={`/SSR/${Number(page) + 1}`}>
+					<a className="flex items-center justify-center">
+						<div className="px-6 py-1 my-8 mb-4 mr-6 text-lg font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-600">
+							Próxima pagina
+						</div>
+					</a>
+				</Link>
+				<Link href="/">
+					<a className="flex self-center px-6 py-1 my-8 mb-4 text-lg font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-600">
+						Home
+					</a>
+				</Link>
+			</section>
 			<div className="grid grid-flow-col grid-cols-6 grid-rows-5 gap-6 p-4">
 				{photos.map((photo) => (
 					<img key={photo} src={photo} className="rounded" />

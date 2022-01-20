@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "pexels";
 import { useCallback, useEffect, useState } from "react";
 
@@ -33,11 +34,18 @@ const CSR = () => {
 		</main>
 	) : (
 		<main>
-			<button
-				className="flex self-center flex-1 px-6 py-1 mx-auto my-8 mb-4 text-lg font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-600"
-				onClick={handleNextPage}>
-				Próxima pagina
-			</button>
+			<section className="flex items-center justify-center flex-1 w-screen">
+				<button
+					className="flex self-center px-6 py-1 my-8 mb-4 mr-6 text-lg font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-600"
+					onClick={handleNextPage}>
+					Próxima pagina
+				</button>
+				<Link href="/">
+					<a className="flex self-center px-6 py-1 my-8 mb-4 text-lg font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-600">
+						Home
+					</a>
+				</Link>
+			</section>
 			<section className="grid grid-flow-col grid-cols-6 grid-rows-5 gap-6 p-4">
 				{photos.map((photo) => (
 					<img key={photo} src={photo} className="rounded" />
