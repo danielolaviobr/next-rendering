@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { createClient } from "pexels";
 import { useCallback, useEffect, useState } from "react";
 
@@ -6,26 +7,30 @@ const client = createClient(process.env.NEXT_PUBLIC_API_KEY);
 
 const CSR = () => {
 	const [photos, setPhotos] = useState([]);
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState<number>(1);
 
-	const loadImages = useCallback(async () => {
-		const response = await client.photos.curated({ per_page: 30, page });
+	const loadImages = async (pageToLoad: number) => {
+		const response = await client.photos.curated({
+			per_page: 30,
+			page: pageToLoad,
+		});
 		if (response["error"]) {
 			console.error(response["error"]);
 			return;
 		}
 		const photosUrls = response["photos"].map((data) => data.src.medium);
 		setPhotos(photosUrls);
-	}, [client, page]);
+	};
 
 	const handleNextPage = async () => {
 		setPhotos([]);
-		setPage(page + 1);
-		await loadImages();
+		const nextPage = page + 1;
+		setPage(nextPage);
+		await loadImages(nextPage);
 	};
 
 	useEffect(() => {
-		loadImages();
+		loadImages(page);
 	}, []);
 
 	return photos.length === 0 ? (
